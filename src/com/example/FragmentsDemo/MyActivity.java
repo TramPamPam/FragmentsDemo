@@ -3,6 +3,7 @@ package com.example.FragmentsDemo;
 //import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -16,6 +17,8 @@ public class MyActivity extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        //android.app.ActionBar actionBar = getActionBar();
+        //actionBar.show();
 
         setContentView(R.layout.main);
 //        if(savedInstanceState == null){
