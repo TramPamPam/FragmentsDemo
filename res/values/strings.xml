@@ -15,5 +15,16 @@
     <string name="new_game_fragment">Here we will start the Game</string>
     <string name="help_fragment">It is just a template of future game</string>
 
+    <string-array name="planets_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
+
 
 </resources>
