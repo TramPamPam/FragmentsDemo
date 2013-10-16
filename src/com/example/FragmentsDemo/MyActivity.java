@@ -2,13 +2,14 @@ package com.example.FragmentsDemo;
 
 //import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+//import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class MyActivity extends FragmentActivity {
+public class MyActivity extends ActionBarActivity {
     NewGameFragment newGameFragment = new NewGameFragment();
     OptionsFragment optionsFragment = new OptionsFragment();
     HelpFragment helpFragment = new HelpFragment();
@@ -17,24 +18,18 @@ public class MyActivity extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        //android.app.ActionBar actionBar = getActionBar();
-        //actionBar.show();
 
         setContentView(R.layout.main);
-//        if(savedInstanceState == null){
-//            HelloFragment helloFragment = new HelloFragment();
-//            getSupportFragmentManager().beginTransaction().add(R.id.fragmentContent,helloFragment).commit();
-//        }
-
+        getSupportActionBar().setTitle("test");
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
 
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.action_bar_menu, menu);
         return true;
     }
-
+   /*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -65,5 +60,5 @@ public class MyActivity extends FragmentActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
+    */
 }
