@@ -7,6 +7,7 @@
     <string name="continue_game">Continue game</string>
     <string name="load_game">Load Game</string>
     <string name="options">Options</string>
+    <string name="animations">Animations</string>
 
     <string name="nothing_to_load">No saved games</string>
 
@@ -17,12 +18,18 @@
     <string name="drawer_open">open drawer</string>
     <string name="drawer_close">drawer close</string>
 
+    <string name="btn_bounce">Bounce</string>
+    <string name="btn_rotate">Rotate</string>
+    <string name="btn_move">Move</string>
+    <string name="btn_blink">Blink</string>
+
+
     <string-array name="game_menu">
         <item>@string/new_game</item>
         <item>@string/continue_game</item>
         <item>@string/load_game</item>
         <item>@string/options</item>
-        <item>@string/help</item>
+        <item>@string/animations</item>
     </string-array>
 
 

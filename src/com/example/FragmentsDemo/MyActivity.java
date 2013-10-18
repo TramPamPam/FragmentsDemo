@@ -10,16 +10,14 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.view.animation.Animation;
+import android.widget.*;
 import android.support.v4.app.ActionBarDrawerToggle;
 
 public class MyActivity extends ActionBarActivity {
     NewGameFragment newGameFragment = new NewGameFragment();
     OptionsFragment optionsFragment = new OptionsFragment();
-    HelpFragment helpFragment = new HelpFragment();
+    AnimationsFragment animationsFragment = new AnimationsFragment();
 
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -108,41 +106,59 @@ public class MyActivity extends ActionBarActivity {
             selectItem(position);
         }
     }
-
     /** Swaps fragments in the main content view */
 
     private void selectItem(int position) {
-        // create a new fragment and specify the planet to show based on position
 
         Toast toast;
-
-//        String[] some_array = getResources().getStringArray(R.array.game_menu);
-//        toast = Toast.makeText(getApplicationContext(), some_array[position], Toast.LENGTH_SHORT);
-//        toast.show();
+        final Animation animation;
+        final TextView viewToAnimate;
+        Button buttonToStart;
 
         getSupportFragmentManager().beginTransaction();
 
+        switch (position) {
+            case 0:
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, newGameFragment).commit();
 
-        if (position == 0) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, newGameFragment).commit();
+                break;
+            case 1:
+            case 2:
+                toast = Toast.makeText(getApplicationContext(), R.string.nothing_to_load, Toast.LENGTH_SHORT);
+                toast.show();
 
-        } else if (position == 1 || position == 2) {
-        toast = Toast.makeText(getApplicationContext(), R.string.nothing_to_load, Toast.LENGTH_SHORT);
-        toast.show();
+                break;
+            case 3:
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, optionsFragment).commit();
 
-        } else if (position == 3) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, optionsFragment).commit();
+                break;
+            case 4:
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, animationsFragment).commit();
 
-        } else if (position == 4) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, helpFragment).commit();
+                /*
+                viewToAnimate = (TextView)findViewById(R.id.textViewHelp);
+                buttonToStart = (Button)findViewById(R.id.buttonHelp);
 
-        } else {
-        toast = Toast.makeText(getApplicationContext(), R.string.continue_game, Toast.LENGTH_SHORT);
-        toast.show();
+                animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.bounce);
+                animation.setAnimationListener(this);
 
+                buttonToStart.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view) {
+                        viewToAnimate.setVisibility(View.VISIBLE);
+
+                        // start the animation
+                        viewToAnimate.startAnimation(animation);
+                    }
+                });
+                */
+
+                break;
+            default:
+                toast = Toast.makeText(getApplicationContext(), R.string.continue_game, Toast.LENGTH_SHORT);
+                toast.show();
+                break;
         }
-
-
     }
 
     @Override

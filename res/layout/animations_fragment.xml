@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:name="com.example.FragmentsDemo.HelpFragment"
+          >
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_blink"
+            android:id="@+id/buttonBlink" android:layout_gravity="center_horizontal|top"
+            android:layout_alignParentLeft="true" android:layout_marginLeft="38dp"
+            android:layout_alignTop="@+id/buttonRotate"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/help_fragment"
+            android:id="@+id/textViewHelp" android:layout_gravity="center" android:gravity="center_horizontal"
+            android:layout_centerHorizontal="true" android:layout_alignParentTop="true"
+            android:layout_marginTop="94dp"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_bounce"
+            android:id="@+id/buttonBounce"
+            android:layout_toRightOf="@+id/buttonBlink" android:layout_alignTop="@+id/buttonBlink"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_move"
+            android:id="@+id/buttonMove"
+            android:layout_alignParentLeft="true" android:layout_marginLeft="101dp"
+            android:layout_below="@+id/buttonBlink"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_rotate"
+            android:id="@+id/buttonRotate"
+            android:layout_toRightOf="@+id/buttonBounce" android:layout_alignParentTop="true"
+            android:layout_marginTop="196dp"/>
+</RelativeLayout>
