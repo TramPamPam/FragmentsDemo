@@ -74,8 +74,6 @@ public class AnimationsFragment extends Fragment implements Animation.AnimationL
             }
         });
 
-
-
         return view;
     }
 

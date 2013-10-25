@@ -1,11 +1,11 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="FragmentsDemo" type="AndroidRunConfigurationType" factoryName="Android Application">
     <module name="FragmentsDemo" />
-    <option name="ACTIVITY_CLASS" value="com.example.FragmentsDemo.MyActivity" />
+    <option name="ACTIVITY_CLASS" value="com.example.FragmentsDemo.MainActivity" />
     <option name="MODE" value="specific_activity" />
     <option name="DEPLOY" value="true" />
     <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
-    <option name="PREFERRED_AVD" value="NexusOne" />
+    <option name="PREFERRED_AVD" value="7.0_4.3" />
     <option name="USE_COMMAND_LINE" value="true" />
     <option name="COMMAND_LINE" value="" />
     <option name="WIPE_USER_DATA" value="false" />
