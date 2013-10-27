@@ -1,31 +1,30 @@
-/*
- * Copyright (C) 2012 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 package com.example.FragmentsDemo;
 
+import android.content.Context;
+import android.content.res.Configuration;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.view.View;
 import android.view.animation.Animation;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 
-public class MainActivity extends FragmentActivity
+
+public class MainActivity extends ActionBarActivity
         implements HeadlinesFragment.OnHeadlineSelectedListener {
+
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private ActionBarDrawerToggle mDrawerToggle;
+
+    private CharSequence mDrawerTitle;
+    private CharSequence mTitle;
+    private String[] mPlanetTitles;
 
     /** Called when the activity is first created. */
     @Override
@@ -33,25 +32,18 @@ public class MainActivity extends FragmentActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.news_articles);
 
-        // Check whether the activity is using the layout version with
-        // the fragment_container FrameLayout. If so, we must add the first fragment
+        getSupportActionBar().setTitle("Game");
+        getSupportActionBar().setSubtitle("menu");
+
         if (findViewById(R.id.fragment_container) != null) {
 
-            // However, if we're being restored from a previous state,
-            // then we don't need to do anything and should return or else
-            // we could end up with overlapping fragments.
             if (savedInstanceState != null) {
                 return;
             }
 
-            // Create an instance of ExampleFragment
             HeadlinesFragment firstFragment = new HeadlinesFragment();
-
-            // In case this activity was started with special instructions from an Intent,
-            // pass the Intent's extras to the fragment as arguments
             firstFragment.setArguments(getIntent().getExtras());
 
-            // Add the fragment to the 'fragment_container' FrameLayout
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, firstFragment).commit();
         }
@@ -59,9 +51,48 @@ public class MainActivity extends FragmentActivity
 
     public void onArticleSelected(int position) {
 
-        if(!getResources().getBoolean(R.bool.istablet)){
+
+        if(!isItATablet(getApplicationContext())){
 
             selectItem(position);
+
+            mTitle = mDrawerTitle = getTitle();
+            mPlanetTitles = getResources().getStringArray(R.array.game_menu);
+            mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+            mDrawerList = (ListView) findViewById(R.id.left_drawer);
+
+// Set the adapter for the list view
+            mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+                    R.layout.support_simple_spinner_dropdown_item, mPlanetTitles));
+
+            mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+            mDrawerToggle = new ActionBarDrawerToggle(
+                    this,                  /* host Activity */
+                    mDrawerLayout,         /* DrawerLayout object */
+                    R.drawable.abc_ic_go,  /* nav drawer icon to replace 'Up' caret */
+                    R.string.drawer_open,  /* "open drawer" description */
+                    R.string.drawer_close  /* "close drawer" description */
+            ) {
+
+                /** Called when a drawer has settled in a completely closed state. */
+                public void onDrawerClosed(View view) {
+                    getSupportActionBar().setSubtitle(mTitle);
+                }
+
+                /** Called when a drawer has settled in a completely open state. */
+                public void onDrawerOpened(View drawerView) {
+                    getSupportActionBar().setSubtitle(mDrawerTitle);
+                }
+            };
+
+            // Set the drawer toggle as the DrawerListener
+            mDrawerLayout.setDrawerListener(mDrawerToggle);
+            // Set the list's click listener
+            mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
 
         } else {
 
@@ -69,7 +100,7 @@ public class MainActivity extends FragmentActivity
         }
     }
 
-    private void selectItem(int position) {
+   private void selectItemTablet(int position) {
 
         NewGameFragment newGameFragment = new NewGameFragment();
         OptionsFragment optionsFragment = new OptionsFragment();
@@ -90,7 +121,7 @@ public class MainActivity extends FragmentActivity
                         .replace(R.id.article_fragment, newGameFragment)
                         .addToBackStack(null)
                         .commit();
-
+                getSupportActionBar().setSubtitle("new game");
                 break;
             case 1:
             case 2:
@@ -105,7 +136,7 @@ public class MainActivity extends FragmentActivity
                         .replace(R.id.article_fragment, optionsFragment)
                         .addToBackStack(null)
                         .commit();
-
+                getSupportActionBar().setSubtitle("options");
                 break;
             case 4:
 
@@ -115,7 +146,7 @@ public class MainActivity extends FragmentActivity
                         .addToBackStack(null)
                         .commit();
 
-
+                getSupportActionBar().setSubtitle("animations");
                 break;
             default:
 
@@ -126,7 +157,7 @@ public class MainActivity extends FragmentActivity
         }
     }
 
-    private void selectItemTablet(int position) {
+   private void selectItem(int position) {
 
         NewGameFragment newGameFragment = new NewGameFragment();
         OptionsFragment optionsFragment = new OptionsFragment();
@@ -142,12 +173,12 @@ public class MainActivity extends FragmentActivity
         switch (position) {
             case 0:
 
-                        getSupportFragmentManager()
+                getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_container, newGameFragment)
                         .addToBackStack(null)
                         .commit();
-
+                getSupportActionBar().setSubtitle("new game");
                 break;
             case 1:
             case 2:
@@ -157,22 +188,22 @@ public class MainActivity extends FragmentActivity
                 break;
             case 3:
 
-                        getSupportFragmentManager()
+                getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_container, optionsFragment)
                         .addToBackStack(null)
                         .commit();
-
+                getSupportActionBar().setSubtitle("options");
                 break;
             case 4:
 
-                        getSupportFragmentManager()
+                getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_container, animationsFragment)
                         .addToBackStack(null)
                         .commit();
 
-
+                getSupportActionBar().setSubtitle("animations");
                 break;
             default:
 
@@ -183,10 +214,23 @@ public class MainActivity extends FragmentActivity
         }
     }
 
-    @Override
-    public void onBackPressed() {
+   @Override
+   public void onBackPressed() {
         FragmentManager fm = getSupportFragmentManager();
         fm.popBackStack();
+        getSupportActionBar().setSubtitle("");
 
+   }
+   private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView parent, View view, int position, long id) {
+            selectItem(position);
+        }
+   }
+
+    public boolean isItATablet(Context context) {
+        boolean xlarge = ((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == 4);
+        boolean large = ((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE);
+        return (xlarge || large);
     }
 }
